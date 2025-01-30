@@ -1,26 +1,87 @@
-<div class="navbar flex items-center justify-between bg-gray-800 text-white p-4">
-  <!-- Logo Section -->
-  <img src="https://drive.google.com/file/d/1dUGsI2de60439usXyXu_jYk0HFWwXOwn/view?usp=sharing" alt="Logo"
-    class="logo w-12 h-12" />
+<nav class="navbar bg-[#05141C] bg-opacity-95 text-white p-4">
+  <div class="container mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <a routerLink="/home">
+      <!-- <img
+        src="https://drive.google.com/uc?id=1dUGsI2de60439usXyXu_jYk0HFWwXOwn"
+        alt="Logo"
+        class="w-12 h-12"
+      /> -->
+    </a>
 
+    <!-- Mobile Menu Button -->
+    <button
+      class="md:hidden text-white focus:outline-none"
+      (click)="toggleMenu()"
+    >
+      <svg
+        class="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        ></path>
+      </svg>
+    </button>
 
-  <!-- Navigation Links -->
-  <div class="nav-links flex space-x-6">
-    <p routerLink="/home" routerLinkActive="active" class="hover:underline hover:text-blue-400">Home</p>
-    <p routerLink="/about" routerLinkActive="active" class="hover:underline  hover:text-blue-400">About</p>
-    <p routerLink="/contact" routerLinkActive="active" class="hover:underline  hover:text-blue-400">Contact</p>
-    <p routerLink="/login" routerLinkActive="active" class="hover:underline  hover:text-blue-400">Login</p>
+    <!-- Navigation Links -->
+    <div
+      class="nav-links hidden md:flex justify-center items-center text-center md:space-x-6 z-10 transition-all duration-300 ubuntu-medium md:text-xl text-lg"
+      [ngClass]="{ 'block absolute top-16 left-0 w-full bg-[#1B2730] bg-opacity-95 py-4 text-center': isMenuOpen, 'hidden': !isMenuOpen }"
+    >
+      <p
+        routerLink="/home"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2 "
+        (click)="closeMenu()"
+      >
+        Home
+      </p>
+      <p
+        routerLink="/schedule"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
+        (click)="closeMenu()"
+      >
+        Schedule
+      </p>
+      <p
+        routerLink="/about"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
+        (click)="closeMenu()"
+      >
+        About
+      </p>
+      <p
+        routerLink="/contact"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
+        (click)="closeMenu()"
+      >
+        Contact
+      </p>
+    </div>
+
+    <!-- Search Bar and Avatar -->
+    <div class="hidden md:flex items-center space-x-4">
+      <img
+        src="assets/icon/activity.svg"
+        alt="User"
+        class="w-10 h-10 rounded-full border border-gray-500"
+      />
+    </div>
   </div>
-  <!-- Search Bar and Avatar -->
-  <div class="search-bar flex items-center space-x-2">
-    <!-- <input type="text" placeholder="Search"
-      class="p-2 rounded border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black" />
-    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Search</button> -->
-    <img src="assets/icon/activity.svg" alt="Avatar" class="w-10 h-10 rounded-full border border-gray-500" />
-  </div>
-</div>
+</nav>
 
-<style>
+
+<!-- <style>
   .navbar {
     background-color: #1f2937;
     /* Dark gray */
@@ -44,4 +105,4 @@
   .search-bar input {
     min-width: 200px;
   }
-</style>
+</style> -->

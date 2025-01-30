@@ -8,7 +8,7 @@ module.exports = {
         primary: {
           light: "#27343D", // Light base
           DEFAULT: "#1B2730", //card element
-          dark: "#05141C", // Dark base
+          dark: "#1B2730", // Dark base
         },
         secondary: {
           light: "#DCE8EC", // Light Yellow

@@ -8,7 +8,7 @@
     </div>
 </div>
 <!-- highlights -->
-<div *ngIf="!isLoading" class="h-full bg-black bg-opacity-55" >
+<div *ngIf="!isLoading" class="h-full bg-black bg-opacity-55 w-screen overflow-x-hidden" >
     <div class="min-h-screen flex flex-col bg-gray-100" class="relative bg-contain bg-center h-screen"
     [ngStyle]="{'background-image': 'url(' + data.imageUrl + ')'}">
           <div class="absolute inset-0 bg-black opacity-60"></div>
@@ -19,8 +19,8 @@
           </div>
     </div>
         <!-- Videos Section -->
-        <div class="bg-black bg-opacity-30">
-            <div class="flex flex-col p-6 space-y-6 absolute bg-gradient-to-b from-[#171c1f] to-[#777777]">
+        <div class="bg-gradient-to-b from-[#171c1f] to-[#777777] flex justify-center ">
+            <div class="flex flex-col p-6 space-y-6 bg-gradient-to-b from-[#171c1f] to-[#777777]">
           <h2 class="text-2xl font-semibold text-white ubuntu-medium">Video Highlights</h2>
       
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

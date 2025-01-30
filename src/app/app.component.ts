@@ -3,14 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { environment } from '../../enviourment';
-import { NavbarComponent } from './myComponents/navbar/navbar.component';
+// import { NavbarComponent } from './myComponents/navbar/navbar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastComponent } from "../../toast.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ToastrModule, ToastComponent],
+  imports: [RouterOutlet, ToastrModule, ToastComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

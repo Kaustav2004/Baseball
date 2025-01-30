@@ -10,22 +10,24 @@ import { routes } from './app/app.routes';
 import { provideToastr, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideRouter(routes),
     provideHttpClient(),
     provideAnimations(),
     provideToastr(),
     importProvidersFrom(
       RouterModule.forRoot(routes),
-      BrowserAnimationsModule, // Import BrowserAnimationsModule here
+      BrowserAnimationsModule,
       ToastrModule.forRoot({
         timeOut: 3000,
         positionClass: 'toast-top-right',
         preventDuplicates: true,
         progressBar: true,
-        progressAnimation: 'decreasing', // Smooth decreasing progress bar
-        easeTime: 300, // Animation transition time
+        progressAnimation: 'decreasing',
+        easeTime: 300,
       }),       
     ),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
