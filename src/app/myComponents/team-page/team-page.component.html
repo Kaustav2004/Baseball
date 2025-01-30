@@ -1,54 +1,71 @@
-<div class=" bg-primary-dark overflow-y-auto m-0 p-4 text-secondary-light ">
-  <div class="container w-7/12 mx-auto justify-center p-4 bg-primary ">
-    <!-- Headshot -->
-    <div class="flex justify-self-start mb-4 gap-5">
-      <img
-        src="https://img.mlbstatic.com/mlb-photos/image/upload/w_213,d_people:generic:headshot:silo:current.png,q_auto:best,f_auto/v1/people/660271/headshot/67/current"
-        alt="Shohei Ohtani Headshot" class="w-48 h-48 rounded-lg" />
-      <h1 class="text-3xl font-bold flex items-center justify-center mb-8">Shohei Ohtani</h1>
+<div class="bg-primary-dark overflow-y-auto m-0 p-4 text-secondary-light">
+  <div class="container w-7/12 mx-auto justify-center p-4 bg-primary">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center text-2xl font-bold">Loading...</div>
 
-    </div>
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="text-center text-red-500 text-lg">{{ errorMessage }}</div>
 
-    <!-- Two Columns: Basic Information (Left) and Other Sections (Right) -->
-    <div class="flex flex-col md:flex-row gap-8">
-      <!-- Left: Basic Information -->
-      <div class="flex-1 text-slate-400">
-        <h2 class="text-2xl font-bold mb-4 text-secondary-light">Basic Information</h2>
-        <p><strong class="text-secondary-light">Full Name:</strong> Shohei Ohtani</p>
-        <p><strong class="text-secondary-light">First Name:</strong> Shohei</p>
-        <p><strong class="text-secondary-light">Last Name:</strong> Ohtani</p>
-        <p><strong class="text-secondary-light">Jersey Number:</strong> 17</p>
-        <p><strong class="text-secondary-light">Birth Date:</strong> July 5, 1994</p>
-        <p><strong class="text-secondary-light">Age:</strong> 30</p>
-        <p><strong class="text-secondary-light">Birth City:</strong> Oshu, Japan</p>
-        <p><strong class="text-secondary-light">Height:</strong> 6' 4"</p>
-        <p><strong class="text-secondary-light">Weight:</strong> 210 lbs</p>
-        <p><strong class="text-secondary-light">Status:</strong> Active</p>
-        <p><strong class="text-secondary-light">MLB Debut:</strong> March 29, 2018</p>
+    <!-- Content Section -->
+    <div *ngIf="!isLoading && playerData">
+      <!-- Headshot -->
+      <div class="flex justify-self-start mb-4 gap-5">
+        <img [src]="'https://securea.mlb.com/mlb/images/players/head_shot/' + playerData.id + '.jpg'"
+          [alt]="playerData.fullName + ' Headshot'" class="w-48 h-48 rounded-lg" />
+        <h1 class="text-3xl font-bold flex items-center justify-center mb-8">
+          {{ playerData.fullName }}
+        </h1>
       </div>
 
-      <!-- Right: Other Sections -->
-      <div class="flex-1 flex flex-col gap-2 text-slate-400">
-        <!-- Position Information -->
-        <div class="p-4 border border-gray-400 rounded-lg">
-          <h2 class="text-xl font-bold mb-2 text-secondary-light ">Position</h2>
-          <p><strong class="text-secondary-light">Primary Position:</strong> Two-Way Player (TWP)</p>
+      <!-- Two Columns: Basic Information (Left) and Other Sections (Right) -->
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Left: Basic Information -->
+        <div class="flex-1 text-slate-400">
+          <h2 class="text-2xl font-bold mb-4 text-secondary-light">Basic Information</h2>
+          <p><strong class="text-secondary-light">Full Name:</strong> {{ playerData.fullName }}</p>
+          <p><strong class="text-secondary-light">First Name:</strong> {{ playerData.firstName }}</p>
+          <p><strong class="text-secondary-light">Last Name:</strong> {{ playerData.lastName }}</p>
+          <p><strong class="text-secondary-light">Jersey Number:</strong> {{ playerData.primaryNumber }}</p>
+          <p><strong class="text-secondary-light">Birth Date:</strong> {{ playerData.birthDate }}</p>
+          <p><strong class="text-secondary-light">Age:</strong> {{ playerData.currentAge }}</p>
+          <p>
+            <strong class="text-secondary-light">Birth City:</strong> {{ playerData.birthCity }}, {{
+            playerData.birthCountry
+            }}
+          </p>
+          <p><strong class="text-secondary-light">Height:</strong> {{ playerData.height }}</p>
+          <p><strong class="text-secondary-light">Weight:</strong> {{ playerData.weight }} lbs</p>
+          <p><strong class="text-secondary-light">Status:</strong> {{ playerData.active ? 'Active' : 'Inactive' }}</p>
+          <p><strong class="text-secondary-light">MLB Debut:</strong> {{ playerData.mlbDebutDate }}</p>
         </div>
 
-        <!-- Batting and Pitching Information -->
-        <div class="p-4 border border-gray-400 rounded-lg">
-          <h2 class="text-xl text-secondary-light font-bold mb-2">Batting & Pitching</h2>
-          <p><strong class="text-secondary-light">Batting Side:</strong> Left</p>
-          <p><strong class="text-secondary-light">Pitching Hand:</strong> Right</p>
-        </div>
+        <!-- Right: Other Sections -->
+        <div class="flex-1 flex flex-col gap-2 text-slate-400">
+          <!-- Position Information -->
+          <div class="p-4 border border-gray-400 rounded-lg">
+            <h2 class="text-xl font-bold mb-2 text-secondary-light">Position</h2>
+            <p>
+              <strong class="text-secondary-light">Primary Position:</strong> {{ playerData.primaryPosition.name }} ({{
+              playerData.primaryPosition.abbreviation
+              }})
+            </p>
+          </div>
 
-        <!-- Additional Information -->
-        <div class="p-4 border border-gray-400 rounded-lg">
-          <h2 class="text-xl text-secondary-light font-bold mb-2">Additional Information</h2>
-          <p><strong class="text-secondary-light">Nickname:</strong> Showtime</p>
-          <p><strong class="text-secondary-light">Pronunciation:</strong> show-HEY oh-TAWN-ee</p>
-          <p><strong class="text-secondary-light">Strike Zone Top:</strong> 3.4</p>
-          <p><strong class="text-secondary-light">Strike Zone Bottom:</strong> 1.62</p>
+          <!-- Batting and Pitching Information -->
+          <div class="p-4 border border-gray-400 rounded-lg">
+            <h2 class="text-xl text-secondary-light font-bold mb-2">Batting & Pitching</h2>
+            <p><strong class="text-secondary-light">Batting Side:</strong> {{ playerData.batSide.description }}</p>
+            <p><strong class="text-secondary-light">Pitching Hand:</strong> {{ playerData.pitchHand.description }}</p>
+          </div>
+
+          <!-- Additional Information -->
+          <div class="p-4 border border-gray-400 rounded-lg">
+            <h2 class="text-xl text-secondary-light font-bold mb-2">Additional Information</h2>
+            <p><strong class="text-secondary-light">Nickname:</strong> {{ playerData.nickName || 'N/A' }}</p>
+            <p><strong class="text-secondary-light">Pronunciation:</strong> {{ playerData.pronunciation || 'N/A' }}</p>
+            <p><strong class="text-secondary-light">Strike Zone Top:</strong> {{ playerData.strikeZoneTop }}</p>
+            <p><strong class="text-secondary-light">Strike Zone Bottom:</strong> {{ playerData.strikeZoneBottom }}</p>
+          </div>
         </div>
       </div>
     </div>

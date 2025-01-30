@@ -7,7 +7,7 @@ import { MatchComponent } from './myComponents/match/match.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'auth', component: SignupComponent },
-  { path: 'team-page', component: TeamPageComponent },
+  { path: 'team-page/:playerId', component: TeamPageComponent },
   { path: 'match/:matchId', component: MatchComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
