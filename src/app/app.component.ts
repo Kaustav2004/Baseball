@@ -5,7 +5,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { environment } from '../../enviourment';
 import { NavbarComponent } from './myComponents/navbar/navbar.component';
 import { ToastrModule } from 'ngx-toastr';
-import { ToastComponent } from "../../toast.component";
+import { ToastComponent } from '../../toast.component';
 
 @Component({
   selector: 'app-root',

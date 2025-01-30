@@ -1,0 +1,89 @@
+<div *ngIf="team" class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">{{ team.name }}</h1>
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <div>
+      <p><strong>Team Name:</strong> {{ team.teamName }}</p>
+      <p><strong>Location:</strong> {{ team.locationName }}</p>
+      <p><strong>Venue:</strong> {{ team.venue.name }}</p>
+      <p><strong>League:</strong> {{ team.league.name }}</p>
+      <p><strong>Division:</strong> {{ team.division.name }}</p>
+    </div>
+    <div>
+      <p><strong>First Year:</strong> {{ team.firstYearOfPlay }}</p>
+      <p><strong>Short Name:</strong> {{ team.shortName }}</p>
+      <p><strong>Club Name:</strong> {{ team.clubName }}</p>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-2">Roster</h2>
+
+  <div *ngIf="roster" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+    <div *ngFor="let player of displayedRoster" class="bg-white rounded-lg shadow p-4">
+      <div class="flex items-center mb-2">
+        <span class="font-bold mr-2">{{ player.jerseyNumber }}</span>
+        <span>{{ player.person.fullName }}</span>
+      </div>
+      <p class="text-sm text-gray-500">{{ player.position.name }} ({{player.position.abbreviation}})</p>
+      <p class="text-sm text-gray-500">{{ player.status.description }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="roster && roster.length > 6" class="text-center mt-4">
+    <button *ngIf="!showFullRoster" (click)="showMore()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      View More
+    </button>
+    <button *ngIf="showFullRoster" (click)="showLess()"
+      class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+      View Less
+    </button>
+  </div>
+
+  <div *ngIf="rosterError" class="text-red-500 mt-2">
+    {{ rosterError }}
+  </div>
+</div>
+
+<div *ngIf="error" class="container mx-auto p-4 text-red-500">
+  {{ error }}
+</div>
+
+<div *ngIf="team" class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-2 mt-6">Recent Games</h2>
+  <div *ngIf="games && games.length > 0; else noGames">
+    <div *ngFor="let game of games" class="bg-white rounded-lg shadow p-4 mb-4">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <p class="font-semibold">{{ datePipe.transform(game.gameDate, 'mediumDate') }}</p>
+        </div>
+        <div *ngIf="game.status.abstractGameState === 'Final'" class="text-gray-600">Final</div>
+        <div *ngIf="game.status.abstractGameState !== 'Final'" class="text-gray-600">{{game.status.abstractGameState}}
+        </div>
+
+      </div>
+      <div class="flex justify-between">
+        <div>
+          <p>
+            {{ game.teams.away.team.name }} ({{ game.teams.away.score }})
+            <span *ngIf="game.teams.away.isWinner" class="text-green-500">(W)</span>
+            <span *ngIf="!game.teams.away.isWinner && game.status.abstractGameState === 'Final'"
+              class="text-red-500">(L)</span>
+          </p>
+          <p>
+            {{ game.teams.home.team.name }} ({{ game.teams.home.score }})
+            <span *ngIf="game.teams.home.isWinner" class="text-green-500">(W)</span>
+            <span *ngIf="!game.teams.home.isWinner && game.status.abstractGameState === 'Final'"
+              class="text-red-500">(L)</span>
+          </p>
+        </div>
+        <div class="text-right">
+          <p class="text-gray-600">{{ game.venue.name }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noGames>
+    <p *ngIf="!gamesError" class="text-gray-500">No games found for this team.</p>
+    <p *ngIf="gamesError" class="text-red-500">{{ gamesError }}</p>
+  </ng-template>
+</div>
