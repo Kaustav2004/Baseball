@@ -10,6 +10,6 @@ export const routes: Routes = [
   { path: 'auth', component: SignupComponent },
   { path: 'team-page/:playerId', component: TeamPageComponent },
   { path: 'team/:teamId', component: TeamComponent },
-  { path: 'match/:matchId', component: MatchComponent },
+  { path: '', component: MatchComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

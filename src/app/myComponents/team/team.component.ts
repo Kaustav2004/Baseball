@@ -1,6 +1,6 @@
 // team.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
@@ -82,11 +82,15 @@ export class TeamComponent implements OnInit {
   showFullRoster = false;
   games: Game[] = [];
   gamesError: string | null = null;
+  upcomingGames: Game[] = [];
+  pastGames: Game[] = [];
+  showUpcomingGames = true;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    private router: Router
   ) {} // Inject DatePipe
 
   ngOnInit(): void {
