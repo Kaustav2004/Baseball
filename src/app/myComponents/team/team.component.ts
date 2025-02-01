@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 interface Team {
   id: number;
@@ -69,7 +70,7 @@ interface Game {
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html', // Make sure you have this line
-  imports: [CommonModule, DatePipe], // Add DatePipe to imports
+  imports: [CommonModule, FormsModule], // Add DatePipe to imports
   providers: [DatePipe], // Add DatePipe to providers
   styles: [],
 })
@@ -85,13 +86,20 @@ export class TeamComponent implements OnInit {
   upcomingGames: Game[] = [];
   pastGames: Game[] = [];
   showUpcomingGames = true;
+  selectedYear: number = new Date().getFullYear();
+  availableYears: number[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     public datePipe: DatePipe,
     private router: Router
-  ) {} // Inject DatePipe
+  ) {
+    const currentYear = new Date().getFullYear();
+    for (let year = 2020; year <= currentYear + 1; year++) {
+      this.availableYears.push(year);
+    }
+  } // Inject DatePipe
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -99,11 +107,17 @@ export class TeamComponent implements OnInit {
       if (teamId) {
         this.fetchTeamData(teamId);
         this.fetchRosterData(teamId);
-        this.fetchGamesData(teamId); // Fetch roster data
+        this.fetchGamesData(teamId, this.selectedYear); // Fetch roster data
       } else {
         this.error = 'Team ID is missing in the URL.';
       }
     });
+  }
+  onYearChange(): void {
+    const teamId = this.route.snapshot.paramMap.get('teamId');
+    if (teamId) {
+      this.fetchGamesData(teamId, this.selectedYear);
+    }
   }
 
   fetchTeamData(teamId: string): void {
@@ -145,8 +159,8 @@ export class TeamComponent implements OnInit {
       },
     });
   }
-  fetchGamesData(teamId: string): void {
-    const apiUrl = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=2024`; // Adjust the year if needed
+  fetchGamesData(teamId: string, year: number): void {
+    const apiUrl = `https://statsapi.mlb.com/api/v1/schedule?sportId=1&season=${year}&teamId=${teamId}`;
 
     this.http.get<any>(apiUrl).subscribe({
       next: (data) => {
@@ -156,17 +170,32 @@ export class TeamComponent implements OnInit {
             allGames.push(gameData);
           });
         });
-        this.games = allGames.filter((game) => {
-          return (
-            game.teams.away.team.id === +teamId ||
-            game.teams.home.team.id === +teamId
+
+        this.games = allGames;
+        const currentDate = new Date();
+
+        // Split games into upcoming and past
+        this.upcomingGames = this.games
+          .filter((game) => new Date(game.gameDate) > currentDate)
+          .sort(
+            (a, b) =>
+              new Date(a.gameDate).getTime() - new Date(b.gameDate).getTime()
           );
-        });
+
+        this.pastGames = this.games
+          .filter((game) => new Date(game.gameDate) <= currentDate)
+          .sort(
+            (a, b) =>
+              new Date(b.gameDate).getTime() - new Date(a.gameDate).getTime()
+          );
+
         this.gamesError = null;
       },
       error: (error) => {
         this.gamesError = 'Error fetching games data. Please try again later.';
         this.games = [];
+        this.upcomingGames = [];
+        this.pastGames = [];
         console.error(error);
       },
     });

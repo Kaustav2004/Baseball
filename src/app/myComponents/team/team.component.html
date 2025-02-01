@@ -49,41 +49,89 @@
 </div>
 
 <div *ngIf="team" class="container mx-auto p-4">
-  <h2 class="text-2xl font-bold mb-2 mt-6">Recent Games</h2>
-  <div *ngIf="games && games.length > 0; else noGames">
-    <div *ngFor="let game of games" class="bg-white rounded-lg shadow p-4 mb-4">
-      <div class="flex justify-between items-center mb-2">
-        <div>
-          <p class="font-semibold">{{ datePipe.transform(game.gameDate, 'mediumDate') }}</p>
-        </div>
-        <div *ngIf="game.status.abstractGameState === 'Final'" class="text-gray-600">Final</div>
-        <div *ngIf="game.status.abstractGameState !== 'Final'" class="text-gray-600">{{game.status.abstractGameState}}
-        </div>
+  <h2 class="text-2xl font-bold mb-4 mt-6">Games</h2>
 
-      </div>
-      <div class="flex justify-between">
-        <div>
-          <p>
-            {{ game.teams.away.team.name }} ({{ game.teams.away.score }})
-            <span *ngIf="game.teams.away.isWinner" class="text-green-500">(W)</span>
-            <span *ngIf="!game.teams.away.isWinner && game.status.abstractGameState === 'Final'"
-              class="text-red-500">(L)</span>
-          </p>
-          <p>
-            {{ game.teams.home.team.name }} ({{ game.teams.home.score }})
-            <span *ngIf="game.teams.home.isWinner" class="text-green-500">(W)</span>
-            <span *ngIf="!game.teams.home.isWinner && game.status.abstractGameState === 'Final'"
-              class="text-red-500">(L)</span>
-          </p>
-        </div>
-        <div class="text-right">
-          <p class="text-gray-600">{{ game.venue.name }}</p>
+  <!-- Year Selector -->
+  <div class="mb-6">
+    <select title="Select Year" [(ngModel)]="selectedYear" (change)="onYearChange()"
+      class="block w-48 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <option *ngFor="let year of availableYears" [value]="year">
+        {{ year }} Season
+      </option>
+    </select>
+  </div>
+
+  <!-- Upcoming Games Section -->
+  <div *ngIf="upcomingGames.length > 0" class="mb-8">
+    <h3 class="text-xl font-semibold mb-4">Upcoming Games</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let game of upcomingGames"
+        class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
+        <div class="flex flex-col">
+          <div class="text-lg font-semibold text-blue-600 mb-2">
+            {{ datePipe.transform(game.gameDate, 'MMM d, y, h:mm a') }}
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span>{{ game.teams.away.team.name }}</span>
+              <span class="font-semibold">{{ game.teams.away.score || '-' }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span>{{ game.teams.home.team.name }}</span>
+              <span class="font-semibold">{{ game.teams.home.score || '-' }}</span>
+            </div>
+          </div>
+
+          <div class="mt-2 text-sm text-gray-600">
+            {{ game.venue.name }}
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Past Games Section -->
+  <div *ngIf="pastGames.length > 0" class="mb-8">
+    <h3 class="text-xl font-semibold mb-4">Past Games</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let game of pastGames"
+        class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
+        <div class="flex flex-col">
+          <div class="text-lg font-semibold text-gray-600 mb-2">
+            {{ datePipe.transform(game.gameDate, 'MMM d, y') }}
+            <span class="text-sm ml-2">
+              {{ game.status.abstractGameState }}
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span>{{ game.teams.away.team.name }}</span>
+              <div>
+                <span class="font-semibold">{{ game.teams.away.score }}</span>
+                <span *ngIf="game.teams.away.isWinner" class="ml-2 text-green-500 text-sm">(W)</span>
+              </div>
+            </div>
+            <div class="flex justify-between items-center">
+              <span>{{ game.teams.home.team.name }}</span>
+              <div>
+                <span class="font-semibold">{{ game.teams.home.score }}</span>
+                <span *ngIf="game.teams.home.isWinner" class="ml-2 text-green-500 text-sm">(W)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2 text-sm text-gray-600">
+            {{ game.venue.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ng-template #noGames>
-    <p *ngIf="!gamesError" class="text-gray-500">No games found for this team.</p>
+    <p *ngIf="!gamesError" class="text-gray-500">No games found for this team in {{ selectedYear }}.</p>
     <p *ngIf="gamesError" class="text-red-500">{{ gamesError }}</p>
   </ng-template>
 </div>
