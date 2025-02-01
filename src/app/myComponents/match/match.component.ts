@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -46,7 +45,7 @@ export class MatchComponent implements OnInit {
   isVideoModalOpen: boolean = false;
   videoUrl: string = '';
 
-  constructor(private route: ActivatedRoute,private http: HttpClient,private sanitizer: DomSanitizer) {}
+  constructor(private route: ActivatedRoute,private http: HttpClient) {}
 
 
 
