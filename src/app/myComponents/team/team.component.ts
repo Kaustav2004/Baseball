@@ -1,6 +1,6 @@
 // team.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
@@ -23,6 +23,7 @@ interface Team {
   firstYearOfPlay: string;
   shortName: string;
   clubName: string;
+  logoUrl?: string;
 }
 
 interface RosterPlayer {
@@ -38,6 +39,7 @@ interface RosterPlayer {
   status: {
     description: string;
   };
+  headshotUrl?: string;
 }
 interface Game {
   gamePk: number;
@@ -70,7 +72,7 @@ interface Game {
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html', // Make sure you have this line
-  imports: [CommonModule, FormsModule], // Add DatePipe to imports
+  imports: [CommonModule, FormsModule, RouterModule], // Add DatePipe to imports
   providers: [DatePipe], // Add DatePipe to providers
   styles: [],
 })
@@ -120,6 +122,14 @@ export class TeamComponent implements OnInit {
     }
   }
 
+  getTeamLogoUrl(teamId: number): string {
+    return `https://www.mlbstatic.com/team-logos/${teamId}.svg`;
+  }
+
+  getPlayerHeadshotUrl(playerId: number): string {
+    return `https://securea.mlb.com/mlb/images/players/head_shot/${playerId}.jpg`;
+  }
+
   fetchTeamData(teamId: string): void {
     const apiUrl = 'https://statsapi.mlb.com/api/v1/teams?sportId=1';
 
@@ -128,6 +138,7 @@ export class TeamComponent implements OnInit {
         const teams: Team[] = data.teams;
         const selectedTeam = teams.find((team) => team.id === +teamId);
         if (selectedTeam) {
+          selectedTeam.logoUrl = this.getTeamLogoUrl(selectedTeam.id);
           this.team = selectedTeam;
           this.error = null;
         } else {
@@ -147,9 +158,12 @@ export class TeamComponent implements OnInit {
     const apiUrl = `https://statsapi.mlb.com/api/v1/teams/${teamId}/roster?season=2025`;
     this.http.get<any>(apiUrl).subscribe({
       next: (data) => {
-        this.roster = data.roster;
+        this.roster = data.roster.map((player: RosterPlayer) => ({
+          ...player,
+          headshotUrl: this.getPlayerHeadshotUrl(player.person.id),
+        }));
         this.rosterError = null;
-        this.updateDisplayedRoster(); // Update initially
+        this.updateDisplayedRoster();
       },
       error: (error) => {
         this.rosterError =
@@ -174,7 +188,6 @@ export class TeamComponent implements OnInit {
         this.games = allGames;
         const currentDate = new Date();
 
-        // Split games into upcoming and past
         this.upcomingGames = this.games
           .filter((game) => new Date(game.gameDate) > currentDate)
           .sort(
