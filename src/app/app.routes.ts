@@ -4,6 +4,7 @@ import { SignupComponent } from './myComponents/signup/signup.component';
 import { TeamPageComponent } from './myComponents/team-page/team-page.component';
 import { MatchComponent } from './myComponents/match/match.component';
 import { ScheduleComponent } from './myComponents/schedule/schedule.component';
+import { ChooseTeamComponent } from './myComponents/choose-team/choose-team.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'team-page', component: TeamPageComponent },
   { path: 'match/:matchId', component: MatchComponent },
   {path: 'schedule', component: ScheduleComponent },
+  {path: 'choose-team', component: ChooseTeamComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
