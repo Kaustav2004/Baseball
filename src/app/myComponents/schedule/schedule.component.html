@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div *ngIf="isLoading" class="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
+    <div class="flex flex-col justify-center items-center">
+      <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <p class="text-white mt-4">Loading, please wait...</p>
+    </div>
+</div>
+<div>
+    <div class="pb-4 bg-primary-dark text-white pt-2">
+        <h2 class="text-2xl font-semibold md:ml-2 ubuntu-bold ">Select a Date</h2>
+        <input 
+          type="date" 
+          [(ngModel)]="selectedDate" 
+          (change)="onDateChange()" 
+          class="mt-2 p-2 border border-gray-300 rounded-md text-black md:ml-2 ubuntu-bold "
+        />
+      </div>
+      
+      <div *ngIf="selectedDate" class="bg-primary-dark text-white min-h-screen select-none">
+        <h3 class="font-bold text-lg md:ml-2 outfit-medium">Matches for {{ formatDate(selectedDate) }}</h3>
+        <div *ngIf="matchesForSelectedDate.length > 0">
+          <div *ngFor="let match of matchesForSelectedDate" class="bg-primary-light p-4 rounded-lg shadow-md flex justify-between m-1 mt-2">
+            <div class="flex flex-col justify-center items-start">
+                <p class="ubuntu-regular flex justify-center items-center ">
+                    <img src="https://www.mlbstatic.com/team-logos/{{ match.team1Id }}.svg" class="w-10 h-10 mr-1"/>
+                     {{ match.team1 }}
+                     <strong class="ubuntu-medium mx-2 text-lg">vs</strong>
+                     <img src="https://www.mlbstatic.com/team-logos/{{ match.team2Id }}.svg" class="w-10 h-10 mr-1"/>
+                     {{ match.team2 }}</p>
+                <span class="ubuntu-regular text-gray-400 mt-2">{{ match.title }}</span>
+            </div>
+            <div class="flex flex-col justify-between items-end">
+                <p class="ubuntu-regular"><strong class="ubuntu-medium">Venue:</strong> {{ match.venue }}</p>
+                <p class="ubuntu-regular"><strong class="ubuntu-medium">Time:</strong> {{ formatTime(match.gameTime) }}</p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="matchesForSelectedDate.length === 0" class="min-h-screen md:ml-2">
+          <p>No matches scheduled for this date.</p>
+        </div>
+      </div>
+      
+      <!-- Show all matches and dates for the initial render -->
+      <div *ngIf="!selectedDate && data.games" class="bg-primary-dark text-white select-none">
+        <div *ngFor="let date of dateKeys">
+          <h3 class="font-bold text-lg md:ml-2 outfit-medium pt-5">{{ formatDate(date) }}</h3>
+          <div *ngFor="let match of data.games[date]" class="bg-primary-light  p-4 rounded-lg shadow-md flex justify-between m-1 mt-2">
+            <div class="flex flex-col justify-center items-start">
+                <p class="ubuntu-regular flex justify-center items-center ">
+                <img src="https://www.mlbstatic.com/team-logos/{{ match.team1Id }}.svg" class="w-10 h-10 mr-1"/>
+                 {{ match.team1 }}
+                 <strong class="ubuntu-medium mx-2 text-lg">vs</strong>
+                 <img src="https://www.mlbstatic.com/team-logos/{{ match.team2Id }}.svg" class="w-10 h-10 mr-1"/>
+                 {{ match.team2 }}</p>
+                <span class="ubuntu-regular text-gray-400 mt-2">{{ match.title }}</span>
+            </div>
+            <div class="flex flex-col justify-between items-end">
+                <p class="ubuntu-regular"><strong class="ubuntu-medium">Venue:</strong> {{ match.venue }}</p>
+                <p class="ubuntu-regular"><strong class="ubuntu-medium">Time:</strong> {{ formatTime(match.gameTime) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+  

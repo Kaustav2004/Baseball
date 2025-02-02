@@ -6,6 +6,7 @@ import { FavteamComponent } from '../../myComponents/favteam/favteam.component';
 import { ProfileComponent } from '../../myComponents/profile/profile.component';
 import { TrendingComponent } from '../../myComponents/trending/trending.component';
 import { SearchComponent } from '../../myComponents/search/search.component';
+import { NavbarComponent } from "../navbar/navbar.component";
 @Component({
   selector: 'app-home',
   imports: [
@@ -16,7 +17,8 @@ import { SearchComponent } from '../../myComponents/search/search.component';
     ProfileComponent,
     TrendingComponent,
     SearchComponent,
-  ],
+    NavbarComponent
+],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })

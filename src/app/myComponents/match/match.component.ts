@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-match',
@@ -12,6 +12,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MatchComponent implements OnInit {
   matchId: string | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer // Merged from diptesh-branch
+  ) {}
 
   ngOnInit() {
     this.matchId = this.route.snapshot.paramMap.get('matchId');
@@ -29,7 +35,7 @@ export class MatchComponent implements OnInit {
       [key: string]: {
         title: string;
         thumbnail: string;
-        videoUrl: string;
+        videoUrl: SafeResourceUrl; // Secured with DomSanitizer
       };
     };
   } = {
@@ -43,13 +49,7 @@ export class MatchComponent implements OnInit {
   isLoading: boolean = true;
   errorMessage: string | null = null;
   isVideoModalOpen: boolean = false;
-  videoUrl: string = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private sanitizer: DomSanitizer
-  ) {}
+  videoUrl: SafeResourceUrl = ''; // Changed to SafeResourceUrl for security
 
   fetchData(): void {
     const apiUrl = `https://statsapi.mlb.com/api/v1/game/${this.matchId}/content`;
@@ -67,19 +67,17 @@ export class MatchComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.data = {
-            imageUrl: response.media.epgAlternate[0].items[0].image.cuts[0].src,
-            title: response.highlights.highlights.items[0].headline,
+            imageUrl: response.media.epgAlternate[0]?.items[0]?.image.cuts[0]?.src || '',
+            title: response.highlights.highlights.items[0]?.headline || 'No Title Available',
             date: new Date(response.editorial.recap.mlb.date).toDateString(),
-            description: response.editorial.recap.mlb.blurb,
+            description: response.editorial.recap.mlb.blurb || 'No Description Available',
             videos: {},
           };
-          let i = 0;
-          response.highlights.highlights.items.forEach((video: any) => {
+          response.highlights.highlights.items.forEach((video: any, index: number) => {
             const title = video.headline;
-            const thumbnail = video.image.cuts[0].src;
-            const videoUrl = video.playbacks[0].url;
-            this.data.videos[i.toString()] = { title, thumbnail, videoUrl };
-            i++;
+            const thumbnail = video.image.cuts[0]?.src || '';
+            const videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.playbacks[0]?.url || '');
+            this.data.videos[index.toString()] = { title, thumbnail, videoUrl };
           });
           this.isLoading = false;
         },
@@ -96,9 +94,9 @@ export class MatchComponent implements OnInit {
     return Object.values(this.data.videos);
   }
 
-  // Open the video modal and set the video URL
+  // Open the video modal and set the sanitized video URL
   openVideoModal(url: string) {
-    this.videoUrl = url;
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     this.isVideoModalOpen = true;
   }
 

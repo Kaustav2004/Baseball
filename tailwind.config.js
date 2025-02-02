@@ -5,20 +5,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // primary: {
-        //   light: "#27343D", // Light base
-        //   DEFAULT: "#1B2730", //card element
-        //   dark: "#05141C", // Dark base
-        // },
-        // secondary: {
-        //   light: "#DCE8EC", // Light Yellow
-        //   DEFAULT: "#DCE8EC", // text colour
-        //   dark: "#b45309", // Dark Yellow
-        // },
         primary: {
-          100: "#1F3A5F", // Dark Blue
-          200: "#4d648d", // Muted Blue
-          300: "#acc2ef", // Light Blue
+          100: "#1F3A5F", // Dark Blue from diptesh-branch
+          200: "#4d648d", // Muted Blue from diptesh-branch
+          300: "#acc2ef", // Light Blue from diptesh-branch
+          light: "#27343D", // Light base from main
+          DEFAULT: "#1B2730", // Card element from main
+          dark: "#05141C", // Dark base from main
+        },
+        secondary: {
+          light: "#DCE8EC", // Light Yellow from main
+          DEFAULT: "#DCE8EC", // Text color from main
+          dark: "#b45309", // Dark Yellow from main
         },
         accent: {
           100: "#3D5A80", // Deep Accent
