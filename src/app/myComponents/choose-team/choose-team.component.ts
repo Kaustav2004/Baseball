@@ -15,12 +15,11 @@ export class ChooseTeamComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch data based on the default year when the component loads
-    this.fetchData();
+     this.fetchData();
+     console.log(this.data);
   }
   isLoading: boolean = true;
-  year: string = '2025'; // Default year
-  selectedDate: string = '';  // Holds the selected date in "yyyy-mm-dd" format
-  dateKeys: string[] = [];  // Array to store the dates for iteration
+
   data: { 
     [key: string]: { 
       teamName: string | null; 
@@ -45,6 +44,7 @@ export class ChooseTeamComponent implements OnInit {
             teamId: team.id,
           };
         });
+        
       },
       error: (error) => {
         console.error(error);

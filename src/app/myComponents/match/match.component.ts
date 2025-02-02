@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-match',
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './match.component.html',
   styleUrl: './match.component.css',
 })
@@ -15,8 +15,7 @@ export class MatchComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
-    private sanitizer: DomSanitizer // Merged from diptesh-branch
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -35,7 +34,7 @@ export class MatchComponent implements OnInit {
       [key: string]: {
         title: string;
         thumbnail: string;
-        videoUrl: SafeResourceUrl; // Secured with DomSanitizer
+        videoUrl: string; // Changed to string
       };
     };
   } = {
@@ -49,7 +48,7 @@ export class MatchComponent implements OnInit {
   isLoading: boolean = true;
   errorMessage: string | null = null;
   isVideoModalOpen: boolean = false;
-  videoUrl: SafeResourceUrl = ''; // Changed to SafeResourceUrl for security
+  videoUrl: string = ''; // Changed to string
 
   fetchData(): void {
     const apiUrl = `https://statsapi.mlb.com/api/v1/game/${this.matchId}/content`;
@@ -76,7 +75,7 @@ export class MatchComponent implements OnInit {
           response.highlights.highlights.items.forEach((video: any, index: number) => {
             const title = video.headline;
             const thumbnail = video.image.cuts[0]?.src || '';
-            const videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(video.playbacks[0]?.url || '');
+            const videoUrl = video.playbacks[0]?.url || ''; // Directly using the URL
             this.data.videos[index.toString()] = { title, thumbnail, videoUrl };
           });
           this.isLoading = false;
@@ -94,9 +93,9 @@ export class MatchComponent implements OnInit {
     return Object.values(this.data.videos);
   }
 
-  // Open the video modal and set the sanitized video URL
+  // Open the video modal and set the video URL
   openVideoModal(url: string) {
-    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    this.videoUrl = url; // No need for sanitization
     this.isVideoModalOpen = true;
   }
 
