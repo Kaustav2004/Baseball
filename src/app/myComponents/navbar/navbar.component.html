@@ -32,16 +32,24 @@
 
     <!-- Navigation Links -->
     <div
-      class="nav-links hidden md:flex justify-center items-center text-center md:space-x-6 z-10 transition-all duration-300 ubuntu-medium md:text-xl text-lg"
+      class="nav-links hidden md:flex justify-center items-center text-center md:space-x-6 z-10 transition-all duration-300"
       [ngClass]="{ 'block absolute top-16 left-0 w-full bg-[#1B2730] bg-opacity-95 py-4 text-center': isMenuOpen, 'hidden': !isMenuOpen }"
     >
       <p
         routerLink="/home"
         routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2 "
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
         (click)="closeMenu()"
       >
         Home
+      </p>
+      <p
+        routerLink="/team-page/660271"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
+        (click)="closeMenu()"
+      >
+        Team
       </p>
       <p
         routerLink="/schedule"
@@ -52,14 +60,6 @@
         Schedule
       </p>
       <p
-        routerLink="/about"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
-        About
-      </p>
-      <p
         routerLink="/contact"
         routerLinkActive="active"
         class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
@@ -67,9 +67,17 @@
       >
         Contact
       </p>
+      <p
+        routerLink="/login"
+        routerLinkActive="active"
+        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
+        (click)="closeMenu()"
+      >
+        Login
+      </p>
     </div>
 
-    <!-- Search Bar and Avatar -->
+    <!-- Avatar Section -->
     <div class="hidden md:flex items-center space-x-4">
       <img
         src="assets/icon/activity.svg"
@@ -79,30 +87,3 @@
     </div>
   </div>
 </nav>
-
-
-<!-- <style>
-  .navbar {
-    background-color: #1f2937;
-    /* Dark gray */
-    color: white;
-  }
-
-  .logo {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-  }
-
-  .nav-links a.active {
-    font-weight: bold;
-  }
-
-  .search-bar input {
-    min-width: 200px;
-  }
-</style> -->

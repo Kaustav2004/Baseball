@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-trending',
   imports: [],
   templateUrl: './trending.component.html',
-  styleUrl: './trending.component.css'
+  styleUrl: './trending.component.css',
 })
-export class TrendingComponent {
-
-}
+export class TrendingComponent {}
