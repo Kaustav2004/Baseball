@@ -32,6 +32,9 @@ export class SignupComponent implements OnInit {
   constructor(private router: Router , private toastr: ToastrService,private toastService: ToastService) {}
 
   ngOnInit(): void {
+    if(localStorage.getItem('token')){
+      this.router.navigate(['/']);
+    }
     const video = document.getElementById('backgroundVideo') as HTMLVideoElement;
     if (video) {
       video.muted = true;
@@ -87,9 +90,12 @@ export class SignupComponent implements OnInit {
 
       if (data.success) {
         this.toastService.showToast('success', 'LogIn successful!', 'Success');
-        // this.showSuccess('Login successful!');
-        localStorage.setItem('token', data.token);
-        this.router.navigate(['/']);
+        localStorage.setItem('token', data.token.email);
+        localStorage.setItem('teams',data.token.favTeams);
+        localStorage.setItem('players',data.token.favPlayers);
+        console.log(localStorage.getItem('teams'));
+        console.log(localStorage.getItem('players'));
+        this.router.navigate(['/choose-team']);
       } else {
         this.toastService.showToast('error', 'LogIn Failed!', 'Error');
       }

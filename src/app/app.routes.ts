@@ -6,6 +6,7 @@ import { MatchComponent } from './myComponents/match/match.component';
 import { TeamComponent } from './myComponents/team/team.component';
 import { ScheduleComponent } from './myComponents/schedule/schedule.component';
 import { ChooseTeamComponent } from './myComponents/choose-team/choose-team.component';
+import { ChoosePlayersComponent } from './myComponents/choose-players/choose-players.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'match/:matchId', component: MatchComponent },          // Dynamic matchId
   { path: 'schedule', component: ScheduleComponent },
   { path: 'choose-team', component: ChooseTeamComponent },
+  {path: 'choose-player', component: ChoosePlayersComponent},
   { path: '**', redirectTo: '', pathMatch: 'full' }               // Fallback route
 ];

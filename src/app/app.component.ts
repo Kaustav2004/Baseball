@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { environment } from '../../enviourment';
-// import { NavbarComponent } from './myComponents/navbar/navbar.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastComponent } from '../../toast.component';
 

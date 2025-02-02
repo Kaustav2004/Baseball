@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-choose-team',
+  selector: 'app-choose-players',
   imports: [CommonModule, FormsModule, NavbarComponent,MatProgressSpinnerModule],
-  templateUrl: './choose-team.component.html',
-  styleUrl: './choose-team.component.css',
+  templateUrl: './choose-players.component.html',
+  styleUrl: './choose-players.component.css'
 })
-export class ChooseTeamComponent implements OnInit {
-  data: { teamName: string; teamId: number }[] = [];
+
+export class ChoosePlayersComponent implements OnInit {
+  data: { playerName: string; playerId: number }[] = [];
   selectedTeams: number[] = [];
   isLoading: boolean = true;
   showSpinner = false;
@@ -24,19 +25,20 @@ export class ChooseTeamComponent implements OnInit {
       this.router.navigate(['/auth']);
     }
 
-    if (localStorage.getItem('teams') && localStorage.getItem('teams')!==undefined && localStorage.getItem('teams')!== "undefined") {
-      this.router.navigate(['/choose-player']);
+    if (localStorage.getItem('players') && localStorage.getItem('players')!== undefined && localStorage.getItem('players')!== "undefined") {
+      this.router.navigate(['/']);
     } 
     this.fetchData();
   }
+
   // Fetch data from the API
   async fetchData(): Promise<void> {
-    const apiUrl = 'https://statsapi.mlb.com/api/v1/teams?sportId=1';
-    this.http.get<{ teams: any[] }>(apiUrl).subscribe({
+    const apiUrl = 'https://statsapi.mlb.com/api/v1/sports/1/players?season=2025';
+    this.http.get<{ people: any[] }>(apiUrl).subscribe({
       next: (response) => {
-        this.data = response.teams.map((team) => ({
-          teamName: team.name,
-          teamId: team.id,
+        this.data = response.people.map((player) => ({
+          playerName: player.fullName,
+          playerId: player.id,
         }));
         this.isLoading = false;
       },
@@ -64,27 +66,29 @@ export class ChooseTeamComponent implements OnInit {
 
   // Continue button action
   async continue(): Promise<void> {
-
+    this.showSpinner=true;
     if (this.selectedTeams.length >= 3) {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/favTeams', {
+        const response = await fetch('http://localhost:3000/api/v1/favPlayers', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email:localStorage.getItem('token'),
-            teams:this.selectedTeams}),
+            players:this.selectedTeams}),
         })
 
         const data = await response.json();
 
         if (data.success) {
-          localStorage.setItem('teams', JSON.stringify(this.selectedTeams));
-          this.router.navigate(['/choose-player']);
+          localStorage.setItem('players',"Done");
+          this.router.navigate(['/']);
         } else{
-          this.router.navigate(['/choose-team']);
+          this.router.navigate(['/choose-player']);
         }
       } catch (error) {
-        this.router.navigate(['/choose-team']);
+        this.router.navigate(['/choose-player']);
+      } finally{
+        this.showSpinner=false;
       }
     }
   }
