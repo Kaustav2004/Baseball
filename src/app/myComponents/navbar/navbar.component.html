@@ -1,89 +1,45 @@
 <nav class="navbar bg-[#05141C] bg-opacity-95 text-white p-4">
-  <div class="container mx-auto flex items-center justify-between">
-    <!-- Logo -->
-    <a routerLink="/home">
-      <img
-        src="https://drive.google.com/uc?id=1dUGsI2de60439usXyXu_jYk0HFWwXOwn"
-        alt="Logo"
-        class="w-12 h-12"
-      />
-    </a>
+  <div class="container mx-auto grid grid-cols-3 items-center">
+    <!-- Logo Section (1/3 width) -->
+    <div class="flex items-center space-x-2">
+      <a routerLink="/home" class="flex items-center space-x-2">
+        <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/c_crop,g_center,h_305,w_410/wokwkel63sf16v8riqna"
+          alt="Logo" class="h-16" />
+        <p class="text-white text-2xl font-bold pt-4">PITCHPLAY</p>
+      </a>
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-white focus:outline-none" (click)="toggleMenu()">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
 
-    <!-- Mobile Menu Button -->
-    <button
-      class="md:hidden text-white focus:outline-none"
-      (click)="toggleMenu()"
-    >
-      <svg
-        class="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"
-        ></path>
-      </svg>
-    </button>
-
-    <!-- Navigation Links -->
-    <div
-      class="nav-links hidden md:flex justify-center items-center text-center md:space-x-6 z-10 transition-all duration-300"
-      [ngClass]="{ 'block absolute top-16 left-0 w-full bg-[#1B2730] bg-opacity-95 py-4 text-center': isMenuOpen, 'hidden': !isMenuOpen }"
-    >
-      <p
-        routerLink="/home"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
+    <!-- Navigation Links (1/3 width) -->
+    <div class="justify-center items-center text-center space-x-6 z-10 transition-all duration-300 text-lg"
+      [ngClass]="{ 'block top-16 bg-[#1B2730] bg-opacity-95 py-4': isMenuOpen, 'hidden md:flex': !isMenuOpen }">
+      <p routerLink="/home" routerLinkActive="active"
+        class="inline-block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">
         Home
       </p>
-      <p
-        routerLink="/team-page/660271"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
-        Team
+      <p routerLink="/all-teams" routerLinkActive="active"
+        class="inline-block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">
+        Teams
       </p>
-      <p
-        routerLink="/schedule"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
+      <p routerLink="/schedule" routerLinkActive="active"
+        class="inline-block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">
         Schedule
       </p>
-      <p
-        routerLink="/contact"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
-        Contact
-      </p>
-      <p
-        routerLink="/login"
-        routerLinkActive="active"
-        class="block md:inline-block hover:underline hover:text-blue-400 cursor-pointer p-2"
-        (click)="closeMenu()"
-      >
-        Login
+      <p routerLink="/all-players" routerLinkActive="active"
+        class="inline-block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">
+        Players
       </p>
     </div>
 
-    <!-- Avatar Section -->
-    <div class="hidden md:flex items-center space-x-4">
-      <img
-        src="assets/icon/activity.svg"
-        alt="User"
-        class="w-10 h-10 rounded-full border border-gray-500"
-      />
+    <!-- Avatar Section (1/3 width) -->
+    <div class="justify-end flex items-center space-x-4">
+      <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/v1737814693/samples/people/boy-snow-hoodie.jpg"
+        alt="User" class="w-16 h-16 rounded-full border object-cover border-gray-500" />
     </div>
   </div>
 </nav>
