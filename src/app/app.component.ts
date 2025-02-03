@@ -5,11 +5,19 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { environment } from '../../enviourment';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastComponent } from '../../toast.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastrModule, ToastComponent],
+  imports: [
+    RouterOutlet,
+    ToastrModule,
+    ToastComponent,
+    HttpClientModule,
+    FormsModule,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
