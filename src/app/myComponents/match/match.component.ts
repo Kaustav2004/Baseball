@@ -12,7 +12,8 @@ import { NavbarComponent } from "../navbar/navbar.component";
 })
 export class MatchComponent implements OnInit {
   matchId: string | null = null;
-
+  highlights: boolean | true = true;
+  
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient
