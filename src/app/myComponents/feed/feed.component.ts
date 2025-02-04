@@ -93,7 +93,7 @@ interface TeamWithGames {
                   *ngFor="let team of displayedTeams"
                   class="bg-[#1f2b3e] border-l-4 border-[#3D5A80]"
                 >
-                  <div class="p-4">
+                  <div class="p-4 bg-[#1f2b3e] rounded-xl">
                     <!-- Team Header -->
                     <div class="flex items-center gap-4 mb-4">
                       <div
@@ -112,9 +112,11 @@ interface TeamWithGames {
                     </div>
 
                     <!-- Upcoming Games - Modified container -->
-                    <div class="overflow-x-auto">
+                    <div class=" overflow-x-auto">
                       <!-- Simplified container -->
-                      <div class="flex gap-4 min-w-full pb-2">
+                      <div
+                        class="flex gap-2 min-w-full pb-2 border-emerald-200"
+                      >
                         <!-- Added min-w-full -->
                         <div
                           *ngIf="team.games.length === 0"

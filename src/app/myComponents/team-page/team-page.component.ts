@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-player',
   templateUrl: './team-page.component.html',
   styleUrl: './team-page.component.css',
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
 })
 export class TeamPageComponent implements OnInit {
   playerId: string | null = null;

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 interface Team {
   id: number;
@@ -25,8 +26,9 @@ interface Team {
 @Component({
   selector: 'app-all-teams',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   template: `
+    <app-navbar></app-navbar>
     <div class="container mx-auto p-4 bg-bg-100 min-h-screen">
       <!-- Search Bar -->
       <div class="mb-8">
