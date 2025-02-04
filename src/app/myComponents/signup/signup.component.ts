@@ -124,7 +124,7 @@ export class SignupComponent implements OnInit {
     this.showSpinner = true;
 
     try {
-      const response = await fetch(`${this.apiUrl}/api/v1/signUp`, {
+      const response = await fetch(`${this.apiUrl}api/v1/signUp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.signupData),

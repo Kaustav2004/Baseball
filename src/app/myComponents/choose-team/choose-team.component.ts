@@ -69,7 +69,7 @@ export class ChooseTeamComponent implements OnInit {
 
     if (this.selectedTeams.length >= 3) {
       try {
-        const response = await fetch(`${this.apiUrl}/api/v1/favTeams`, {
+        const response = await fetch(`${this.apiUrl}api/v1/favTeams`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -71,7 +71,7 @@ export class ChoosePlayersComponent implements OnInit {
     this.showSpinner=true;
     if (this.selectedTeams.length >= 3) {
       try {
-        const response = await fetch(`${this.apiUrl}/api/v1/favPlayers`, {
+        const response = await fetch(`${this.apiUrl}api/v1/favPlayers`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
