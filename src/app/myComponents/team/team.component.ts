@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 interface Team {
   id: number;
@@ -72,7 +73,7 @@ interface Game {
 @Component({
   selector: 'app-team',
   templateUrl: './team.component.html', // Make sure you have this line
-  imports: [CommonModule, FormsModule, RouterModule], // Add DatePipe to imports
+  imports: [CommonModule, FormsModule, RouterModule, NavbarComponent], // Add DatePipe to imports
   providers: [DatePipe], // Add DatePipe to providers
   styles: [],
 })

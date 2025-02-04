@@ -8,9 +8,8 @@ describe('TrendingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TrendingComponent]
-    })
-    .compileComponents();
+      imports: [TrendingComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TrendingComponent);
     component = fixture.componentInstance;
