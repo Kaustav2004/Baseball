@@ -8,7 +8,11 @@
            [alt]="team.teamName" 
            class="w-12 h-12 rounded-full bg-white p-2" />
       <div>
-        <p class="text-md font-semibold text-text-100">{{ team.teamName }}</p>
+        <p class="text-md font-semibold text-text-100">
+          <a href='https://baseball-bay.vercel.app/team/{{team.teamId}}'>
+            {{ team.teamName }}
+          </a>
+        </p>
       </div>
     </div>
   </div>
