@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-player',
   templateUrl: './team-page.component.html',
   styleUrl: './team-page.component.css',
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, FormsModule, RouterModule],
 })
 export class TeamPageComponent implements OnInit {
   playerId: string | null = null;
