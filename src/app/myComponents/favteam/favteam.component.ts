@@ -26,7 +26,7 @@ export class FavteamComponent implements OnInit {
           if (data.teams && data.teams.length > 0) {
             this.teamInfo.push({
               teamId: team,
-              teamName: data.teams[0].teamName,
+              teamName: data.teams[0].name,
             });
           }
         } catch (error) {
