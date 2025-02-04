@@ -5,6 +5,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ToastService } from '../../../../toast.service';
+import { environment } from '../../../enviourments/enviourment';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,6 +16,7 @@ import { ToastService } from '../../../../toast.service';
 })
 
 export class SignupComponent implements OnInit {
+  apiUrl = environment.API_URL;
   currentForm: 'login' | 'signup' = 'login';
   showSpinner = false;
 
@@ -80,7 +83,7 @@ export class SignupComponent implements OnInit {
     this.showSpinner = true;
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/logIn', {
+      const response = await fetch(`${this.apiUrl}api/v1/logIn`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.loginData),
@@ -121,7 +124,7 @@ export class SignupComponent implements OnInit {
     this.showSpinner = true;
 
     try {
-      const response = await fetch('http://localhost:3000/api/v1/signUp', {
+      const response = await fetch(`${this.apiUrl}/api/v1/signUp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.signupData),

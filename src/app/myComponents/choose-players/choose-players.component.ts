@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { environment } from '../../../enviourments/enviourment';
 
 @Component({
   selector: 'app-choose-players',
@@ -14,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 
 export class ChoosePlayersComponent implements OnInit {
+  apiUrl = environment.API_URL;
   data: { playerName: string; playerId: number }[] = [];
   selectedTeams: number[] = [];
   isLoading: boolean = true;
@@ -69,7 +71,7 @@ export class ChoosePlayersComponent implements OnInit {
     this.showSpinner=true;
     if (this.selectedTeams.length >= 3) {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/favPlayers', {
+        const response = await fetch(`${this.apiUrl}/api/v1/favPlayers`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
