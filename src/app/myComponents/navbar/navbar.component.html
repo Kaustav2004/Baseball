@@ -24,8 +24,11 @@
     </div>
 
     <!-- Avatar Section -->
-    <div class="hidden md:flex items-center space-x-4">
-      <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/v1737814693/samples/people/boy-snow-hoodie.jpg" alt="User" class="w-12 h-12 rounded-full border object-cover border-gray-500" />
+    <div class="hidden md:flex items-center space-x-4 cursor-pointer">
+      <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/v1737814693/samples/people/boy-snow-hoodie.jpg" alt="User" (click)="toggleDropdown()"class="w-12 h-12 rounded-full border object-cover border-gray-500" />
+      <div *ngIf="isDropdownOpen" class="absolute right-16 top-5 w-32 bg-white text-black rounded shadow-lg z-30">
+        <button (click)="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-200">Logout</button>
+      </div>
     </div>
   </div>
 
@@ -35,6 +38,12 @@
     <p routerLink="/all-teams" routerLinkActive="active" class="block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">Teams</p>
     <p routerLink="/schedule" routerLinkActive="active" class="block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">Schedule</p>
     <p routerLink="/all-players" routerLinkActive="active" class="block hover:underline hover:text-blue-400 cursor-pointer p-2" (click)="closeMenu()">Players</p>
-    <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/v1737814693/samples/people/boy-snow-hoodie.jpg" alt="User" class="w-12 h-12 rounded-full mx-auto border object-cover border-gray-500 mt-2" />
+    <div class="relative">
+      <img src="https://res.cloudinary.com/dtgegh9ya/image/upload/v1737814693/samples/people/boy-snow-hoodie.jpg" alt="User" (click)="toggleDropdown()" class="cursor-pointer w-12 h-12 rounded-full mx-auto border object-cover border-gray-500 mt-2" />
+      <div *ngIf="isDropdownOpen" class="absolute right-5 bottom-0 mt-14 w-32 bg-white text-black rounded shadow-lg z-30">
+        <button (click)="logout()" class="w-full text-left px-4 py-2 hover:bg-gray-200">Logout</button>
+      </div>
+    </div>
+
   </div>
 </nav>
