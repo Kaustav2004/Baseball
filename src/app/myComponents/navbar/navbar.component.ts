@@ -26,7 +26,6 @@ export class NavbarComponent {
   }
 
   logout() {
-    // Add your logout logic here
     localStorage.removeItem('token');
     localStorage.removeItem('teams');
     localStorage.removeItem('players');

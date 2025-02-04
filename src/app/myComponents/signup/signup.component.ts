@@ -94,10 +94,11 @@ export class SignupComponent implements OnInit {
       if (data.success) {
         this.toastService.showToast('success', 'LogIn successful!', 'Success');
         localStorage.setItem('token', data.token.email);
+        localStorage.setItem('name',data.token.name);
         localStorage.setItem('teams',data.token.favTeams);
         localStorage.setItem('players',data.token.favPlayers);
-        console.log(localStorage.getItem('teams'));
-        console.log(localStorage.getItem('players'));
+        // console.log(localStorage.getItem('teams'));
+        // console.log(localStorage.getItem('players'));
         this.router.navigate(['/choose-team']);
       } else {
         this.toastService.showToast('error', 'LogIn Failed!', 'Error');

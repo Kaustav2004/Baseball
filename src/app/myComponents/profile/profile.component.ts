@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
@@ -7,4 +7,9 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
-export class ProfileComponent {}
+export class ProfileComponent implements OnInit {
+  name: string | null = null;
+  ngOnInit(): void {
+      this.name = localStorage.getItem('name');
+  }
+}

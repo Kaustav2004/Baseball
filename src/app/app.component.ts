@@ -40,17 +40,17 @@ export class AppComponent implements OnInit {
 
   async checkFirestoreConnection(): Promise<void> {
     try {
-      console.log('Starting Firestore connection...');
+      // console.log('Starting Firestore connection...');
       const querySnapshot = await getDocs(collection(this.db, 'imageOrders'));
 
       if (querySnapshot.empty) {
         this.connectionStatus = "No data found in 'imageOrders' collection.";
-        console.log('No data found.');
+        // console.log('No data found.');
       } else {
         this.connectionStatus = 'Connected to Firestore!';
-        console.log('Connected to Firestore!');
+        // console.log('Connected to Firestore!');
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, ' => ', doc.data());
+          // console.log(doc.id, ' => ', doc.data());
         });
       }
     } catch (error) {
