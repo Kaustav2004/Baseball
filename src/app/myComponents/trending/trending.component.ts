@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 interface Team {
   id: number;
@@ -16,7 +17,7 @@ interface Player {
 @Component({
   selector: 'app-trending',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule], // Added RouterModule
   template: `
     <div class="bg-[#0F1C2E] min-h-screen p-8">
       <div class="container mx-auto max-w-2xl">
@@ -27,7 +28,8 @@ interface Player {
         <div class="grid grid-cols-2 gap-4 mb-8">
           <div
             *ngFor="let team of mostFollowedTeams"
-            class="bg-[#1f2b3e] rounded-lg p-3 flex flex-col items-center"
+            class="bg-[#1f2b3e] rounded-lg p-3 flex flex-col items-center cursor-pointer"
+            (click)="navigateToTeam(team.id)"
           >
             <div
               class="w-12 h-12 flex justify-center items-center bg-white rounded-full"
@@ -47,7 +49,8 @@ interface Player {
         <div class="grid grid-cols-2 gap-4">
           <div
             *ngFor="let player of mostFollowedPlayers"
-            class="bg-[#1f2b3e] rounded-lg p-3 flex flex-col items-center"
+            class="bg-[#1f2b3e] rounded-lg p-3 flex flex-col items-center cursor-pointer"
+            (click)="navigateToPlayer(player.id)"
           >
             <img
               [src]="player.headshotUrl"
@@ -69,6 +72,8 @@ export class TrendingComponent implements OnInit {
 
   mostFollowedTeams: Team[] = [];
   mostFollowedPlayers: Player[] = [];
+
+  constructor(private router: Router) {} // Inject Router
 
   async ngOnInit() {
     await this.fetchMostFollowedTeams();
@@ -115,5 +120,14 @@ export class TrendingComponent implements OnInit {
         }
       })
     ).then((players) => players.filter((player) => player !== null));
+  }
+
+  // Navigation methods
+  navigateToTeam(teamId: number) {
+    this.router.navigate(['/team', teamId]);
+  }
+
+  navigateToPlayer(playerId: number) {
+    this.router.navigate(['/team-page', playerId]);
   }
 }
