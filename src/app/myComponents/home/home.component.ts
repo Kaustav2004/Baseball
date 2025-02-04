@@ -6,7 +6,7 @@ import { FavteamComponent } from '../../myComponents/favteam/favteam.component';
 import { ProfileComponent } from '../../myComponents/profile/profile.component';
 import { TrendingComponent } from '../../myComponents/trending/trending.component';
 import { SearchComponent } from '../../myComponents/search/search.component';
-import { NavbarComponent } from "../navbar/navbar.component";
+import { NavbarComponent } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,16 +19,16 @@ import { Router } from '@angular/router';
     ProfileComponent,
     TrendingComponent,
     SearchComponent,
-    NavbarComponent
-],
+    NavbarComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-    constructor(private router: Router) {}
-    ngOnInit(): void {
-      if(!localStorage.getItem('token')){
-        this.router.navigate(['/auth']);
-      }
+  constructor(private router: Router) {}
+  ngOnInit(): void {
+    if (!localStorage.getItem('token')) {
+      this.router.navigate(['/auth']);
     }
+  }
 }

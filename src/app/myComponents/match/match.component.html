@@ -1,79 +1,62 @@
 <app-navbar></app-navbar>
 <!-- loader -->
 <div *ngIf="isLoading" class="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50 z-50">
-    <div class="flex flex-col justify-center items-center">
-      <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-      <p class="text-white mt-4">Loading, please wait...</p>
+  <div class="flex flex-col justify-center items-center">
+    <div class="spinner-border animate-spin inline-block w-16 h-16 border-4 border-t-4 border-gray-200 rounded-full"
+      role="status">
+      <span class="sr-only">Loading...</span>
     </div>
+    <p class="text-white mt-4">Loading, please wait...</p>
+  </div>
 </div>
 <!-- highlights -->
-<div *ngIf="!isLoading" class="h-full bg-black bg-opacity-55 w-screen overflow-x-hidden" >
-    <div class="min-h-screen flex flex-col bg-gray-100" class="relative bg-contain bg-center h-screen"
+<div *ngIf="!isLoading" class="h-full bg-black bg-opacity-55 w-screen overflow-x-hidden">
+  <div class="min-h-screen flex flex-col bg-gray-100" class="relative bg-contain bg-center h-screen"
     [ngStyle]="{'background-image': 'url(' + data.imageUrl + ')'}">
-          <div class="absolute inset-0 bg-black opacity-60"></div>
-          <div class="absolute bottom-20 z-10 text-white p-6">
-            <h1 class="text-3xl font-bold ubuntu-bold ">{{ data.title }}</h1>
-            <p class="mt-4 text-xl ubuntu-medium-italic">{{ data.description }}</p>
-            <p class="text-xl mt-6 text-slate-50 outfit-medium">Scroll down for highlights ↓</p>
-          </div>
+    <div class="absolute inset-0 bg-black opacity-60"></div>
+    <div class="absolute bottom-20 z-10 text-white p-6">
+      <h1 class="text-3xl font-bold ubuntu-bold ">{{ data.title }}</h1>
+      <p class="mt-4 text-xl ubuntu-medium-italic">{{ data.description }}</p>
+      <p class="text-xl mt-6 text-slate-50 outfit-medium">Scroll down for highlights ↓</p>
     </div>
-        <!-- Videos Section -->
-        <div class="bg-gradient-to-b from-[#171c1f] to-[#777777] flex justify-center ">
-            <div class="flex flex-col p-6 space-y-6 bg-gradient-to-b from-[#171c1f] to-[#777777]">
-          <h2 class="text-2xl font-semibold text-white ubuntu-medium">Video Highlights</h2>
-          <h2 class="text-2xl font-semibold text-white ubuntu-medium"></h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div *ngFor="let video of getVideos()">
-              <!-- Video Item -->
-              <div class="relative bg-gray-800 rounded-lg overflow-hidden">
-                <img
-                  [src]="video.thumbnail"
-                  alt="Video Thumbnail"
-                  class="w-full h-56 object-cover rounded-t-lg loading-lazy"
-                />
-                <div class="absolute inset-0 bg-black opacity-40"></div>
-                <div class="absolute bottom-4 left-4 z-10 text-white">
-                  <h3 class="text-xl font-semibold ubuntu-bold text-gray-200">{{ video.title }}</h3>
-                  <button
-                    class="mt-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full outfit-regular"
-                    (click)="openVideoModal(video.videoUrl)"
-                  >
-                    Play
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      
-        <!-- Video Modal (Hidden by Default) -->
-        <div
-          *ngIf="isVideoModalOpen"
-          class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20"
-        >
-          <div class="relative bg-white rounded-lg p-4 max-w-3xl w-full">
-            <button
-              class="absolute top-0 right-1 text-gray-500 text-xl"
-              (click)="closeVideoModal()"
-            >
-              ✖
-            </button>
-            <div class="aspect-w-16 aspect-h-9">
-              <video
-                autoplay
-                controls
-                controlsList="nodownload noremoteplayback"
-                [src]="videoUrl "
-                frameborder="0"
-                allowfullscreen
-                class="w-full h-full rounded-lg"
-              ></video>
+  </div>
+  <!-- Videos Section -->
+  <div class="bg-gradient-to-b from-[#171c1f] to-[#777777] flex justify-center ">
+    <div class="flex flex-col p-6 space-y-6 bg-gradient-to-b from-[#171c1f] to-[#777777]">
+      <h2 class="text-2xl font-semibold text-white ubuntu-medium">Video Highlights</h2>
+      <h2 class="text-2xl font-semibold text-white ubuntu-medium"></h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let video of getVideos()">
+          <!-- Video Item -->
+          <div class="relative bg-gray-800 rounded-lg overflow-hidden">
+            <img [src]="video.thumbnail" alt="Video Thumbnail"
+              class="w-full h-56 object-cover rounded-t-lg loading-lazy" />
+            <div class="absolute inset-0 bg-black opacity-40"></div>
+            <div class="absolute bottom-4 left-4 z-10 text-white">
+              <h3 class="text-xl font-semibold ubuntu-bold text-gray-200">{{ video.title }}</h3>
+              <button class="mt-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full outfit-regular"
+                (click)="openVideoModal(video.videoUrl)">
+                Play
+              </button>
             </div>
           </div>
         </div>
       </div>
-      
+
+    </div>
+
+    <!-- Video Modal (Hidden by Default) -->
+    <div *ngIf="isVideoModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-20">
+      <div class="relative bg-white rounded-lg p-4 max-w-3xl w-full">
+        <button class="absolute top-0 right-1 text-gray-500 text-xl" (click)="closeVideoModal()">
+          ✖
+        </button>
+        <div class="aspect-w-16 aspect-h-9">
+          <video autoplay controls controlsList="nodownload noremoteplayback" [src]="videoUrl " frameborder="0"
+            allowfullscreen class="w-full h-full rounded-lg"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
