@@ -1,6 +1,6 @@
 [build]
   publish = "frontend/dist/frontend"
-  command = "ng build --prod"
+  command = "ng build"
 
 [context.production.environment]
   BASE_HREF = "/frontend/"
