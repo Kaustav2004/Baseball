@@ -1,3 +1,9 @@
 {
-  "REWRITES":[{"SOURCE":"/(.*)","DESTINATION":"/"}]
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/dist/baseball/**/*",
+      "use": "@vercel/static"
+    }
+  ]
 }
