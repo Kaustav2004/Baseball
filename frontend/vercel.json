@@ -5,7 +5,5 @@
         "src": "frontend/dist/baseball/**/*",
         "use": "@vercel/static"
       }
-    ],
-    "public": "frontend/dist/baseball"
-  }
-  
+    ]
+  }  
