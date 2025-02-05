@@ -1,0 +1,30 @@
+<div class="flex flex-col w-full h-full">
+  <!-- Navbar -->
+  <app-navbar></app-navbar>
+
+  <!-- Main Content Container -->
+  <div
+    class="home flex flex-col md:flex-row w-full h-full p-4 gap-2 bg-primary-dark overflow-y-auto text-secondary-light">
+
+    <!-- Profile, Favorites Section (Left) -->
+    <div class="pro-fav flex flex-col p-4 space-y-4 w-full md:w-1/4">
+      <app-profile></app-profile>
+      <app-favplayer></app-favplayer>
+      <app-favteam></app-favteam>
+    </div>
+
+    <!-- Search and Feed Section (Middle) -->
+    <div class="search-feed flex flex-col w-full md:w-1/2">
+      <app-search></app-search>
+      <app-feed></app-feed>
+    </div>
+
+    <!-- Live Score and Trending Section (Right) -->
+    <div class="live-trending flex flex-col gap-4 w-full md:w-1/4">
+      <app-live-score></app-live-score>
+      <app-trending></app-trending>
+    </div>
+
+  </div>
+
+</div>

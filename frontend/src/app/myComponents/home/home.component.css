@@ -1,0 +1,9 @@
+:host {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+
+  height: 100vh; /* Optional: Ensures full viewport height */
+  width: 100%; /* Optional: Ensures full width */
+}
