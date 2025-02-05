@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/dist/baseball/**/*",
+      "src": "frontend/dist/frontend/**/*",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "frontend/dist/baseball/$1"
+      "src": "/frontend/(.*)",
+      "dest": "/frontend/index.html"
     }
   ]
 }
