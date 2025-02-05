@@ -2,8 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "frontend/dist/baseball/**/*",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist/baseball" }
     }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
