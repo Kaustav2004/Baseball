@@ -1,0 +1,12 @@
+[build]
+  publish = "frontend/dist/frontend"
+  command = "ng build --prod"
+
+[context.production.environment]
+  BASE_HREF = "/frontend/"
+
+[[redirects]]
+  from = "/frontend/*"
+  to = "/frontend/index.html"
+  status = 200
+  force = true
